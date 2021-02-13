@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\Authentication\AuthController;
 use Inertia\Inertia;
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +31,21 @@ Route::post('/post', [PostController::class, 'store']);
 
 Route::get('/posts/{id}', [PostController::class, 'show']);
 Route::get("/posts/edit/{id}", [PostController::class, 'edit']);
-Route::put("/posts/{id}", [PostController::class, 'update']);
+Route::put("/posts/edit/{id}", [PostController::class, 'update']);
 
 Route::delete('/posts/{id}', [PostController::class, 'destroy']);
 
+Route::get('/login',[AuthController::class,'showLogin'])->name('login');
+
+Route::get('/dashboard',[HomeController::class, 'index'])->name('dashboard');
+
+Route::get('/register',[AuthController::class,'showRegister'])->name('register');
+
+Route::post('/login',[AuthController::class,'login'])->name('submitlogin');
+Route::post('/register',[AuthController::class,'register'])->name('submitregister');
+
+
+//Route::get
 /*Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -52,12 +65,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //Route::resource('/posts', PostController::class);
 
 //Route::resource('posts', "App\Http\Controllers\PostController");
-
-/*Route::get('/', function () {
-    return view('welcome'); 
-});
-
-Route::get('/hello', function () {
-    return '<h1> hello</h1>';
-});*/
 

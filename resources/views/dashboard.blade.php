@@ -1,17 +1,34 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                </div>
-            </div>
-        </div>
+@extends('layouts.app')
+
+@section('content')
+ <div class="border" style="margin: 100px 150px 80px 150px;" style="margin">
+    <h1 >  welcome  to dashboard<h1>
+        <a href= /post/create  class="btn btn-primary"> Create posts </a>
+        @if (count($posts) > 0)
+            <table class="table table-striped">
+                <tr>
+                    <th>Your Posts</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach($posts as $post) 
+                <tr>
+                    <td>{{ $post->title }}</td>
+                    <td><a href= "{{'/posts/edit/'.$post->id}}" class="btn btn-success"> Edit </a></td>
+                    <td> <form method="POST" action="{{'/posts/'.$post->id}}" class='pull-right'>
+                        @csrf
+                         @method('DELETE')
+                       
+                         {{-- <input type="hidden" name="_method" value="delete"> --}}
+                         <button type="submit" class= 'btn btn-danger' >Delete</button>
+                  
+               </form>  </td>
+                </tr>
+                @endforeach
+            </table>
+        @else
+            <p>Ypu have to add new posts<p>
+        @endif
     </div>
-</x-app-layout>
+@endsection

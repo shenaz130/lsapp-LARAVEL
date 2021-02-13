@@ -3,12 +3,14 @@
 @section('content')
     <h1 style="padding:100px 50px 0 150px;"> Create Post </h1>
 
-    <form method="POST" action="/post">
+    <form method="POST" action="/post" , enctype="multipart/form-data">
          @csrf
          <label for="title"> Title</label>
          <input id="title" name="title" type="text" class = 'form-control', placeholder = 'title here'>
          <label for="body"> Body</label>
          <input id="body" name="body" type="text" class = 'form-control', placeholder = 'Body text'>
+         <div class='form-group'>
+            <input type="file" id="cover_image" name="cover_image" input type="submit">
          <button type="submit" class= 'btn btn-primary' >Submit</button>
    
 </form>
